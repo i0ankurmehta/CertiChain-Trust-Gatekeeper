@@ -30,7 +30,7 @@ The active interface uses prebuilt synthetic cases only. Do not enter or upload 
 - `app.py` — Streamlit interface for synthetic Trust Gatekeeper cases.
 - `tg_rules.py` — deterministic TG-RULES-001 evidence-adjudication engine.
 - `tg_demo_cases.py` — fictional demonstration cases.
-- `tests/test_tg_rules.py` — 23 unit tests for intake, temporal reasoning, source dependencies, conflicts, mismatches, and award-verification boundaries.
+- `tests/test_tg_rules.py` — 25 unit tests for intake, temporal reasoning, source dependencies, conflicts, mismatches, and award-verification boundaries.
 - `research/trust-gatekeeper/` — problem definition, competitor gap analysis, ontology, benchmark protocol, research plan, operational standards, analyst checklist, worked cases, adjudication rules, and project-boundary note.
 
 ## Current limitations
