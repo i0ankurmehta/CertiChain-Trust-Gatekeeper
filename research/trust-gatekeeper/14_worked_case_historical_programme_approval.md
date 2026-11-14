@@ -152,7 +152,7 @@ The query must not tell the registrar that fraud has occurred or ask the registr
 
 ## 10. Implementation status
 
-This scenario is now available in the Streamlit case selector as **Historical programme approval — Rohan** (`TG-DEMO-004`). The rules engine supports claim-specific recommended actions, including a distinct human-review step for the historical programme record and a narrowly scoped registrar confirmation for the fictional roll number. Two regression tests cover the explicit-exclusion versus incomplete-historical-coverage distinction. The fixture uses only synthetic IDs and placeholder evidence; no actual government citations or institution records are included.
+This scenario is now available in the Streamlit case selector as **Historical programme approval — Rohan** (`TG-DEMO-004`). The rules engine supports claim-specific recommended actions, including a distinct human-review step for the historical programme record and a narrowly scoped registrar confirmation for the fictional roll number. Regression tests cover the explicit-exclusion versus incomplete-historical-coverage distinction and the evidence metadata boundary. The UI now displays source title, publisher placeholder, reference identifier, effective period, excerpt and review state. The fixture uses only synthetic IDs and placeholder evidence; source URLs are intentionally empty, and no actual government citations or institution records are included.
 
 ## 11. Research value
 
