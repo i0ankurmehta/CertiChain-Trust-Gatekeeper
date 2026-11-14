@@ -33,7 +33,7 @@ This is an analyst-assist research direction for cases where institution/program
 
 - ../../tg_rules.py — deterministic TG-RULES-001 assessment engine.
 - ../../tg_demo_cases.py — fictional synthetic case fixtures.
-- ../../tests/test_tg_rules.py — 23 unit tests.
+- ../../tests/test_tg_rules.py — 27 unit tests.
 - ../../app.py — minimal synthetic-case Streamlit interface.
 
 ## Current limitations
