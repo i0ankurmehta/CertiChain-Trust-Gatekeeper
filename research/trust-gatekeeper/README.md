@@ -1,6 +1,6 @@
 # CertiChain Trust Gatekeeper — Research Track
 
-**Track status:** Rules engine v0.1, synthetic demo UI and 25 unit tests  
+**Track status:** Rules engine v0.1, synthetic demo UI and 27 unit tests  
 **Market under study:** Indian background-verification (BGV) providers  
 **Data:** Synthetic only
 
