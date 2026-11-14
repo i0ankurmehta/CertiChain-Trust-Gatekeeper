@@ -207,5 +207,24 @@ class TestTrustGatekeeperRules(unittest.TestCase):
         self.assertEqual(programme["outcome"], EV05)
 
 
+    def test_26_rohan_sources_have_explicit_synthetic_metadata_not_fake_urls(self):
+        case = get_demo_case("Historical programme approval — Rohan")
+        self.assertEqual(len(case["evidence"]), 4)
+        for item in case["evidence"]:
+            self.assertTrue(item.get("source_title"))
+            self.assertTrue(item.get("publisher"))
+            self.assertTrue(item.get("reference_number"))
+            self.assertTrue(item.get("source_excerpt"))
+            self.assertIn("SYNTHETIC", item.get("source_record_status", ""))
+            self.assertIsNone(item.get("source_url"))
+
+    def test_27_rohan_evidence_register_preserves_individual_source_identity(self):
+        case = get_demo_case("Historical programme approval — Rohan")
+        records = {item["evidence_id"]: item for item in case["evidence"]}
+        self.assertEqual(records["SYN4-E04"]["valid_from"], "2020-01-01")
+        self.assertIs(records["SYN4-E04"]["period_scope_complete"], True)
+        self.assertEqual(records["SYN4-E03"]["valid_sessions"][-1], "2017-2018")
+
+
 if __name__ == "__main__":
     unittest.main()
