@@ -417,6 +417,9 @@ def assess_case(case: Dict[str, Any]) -> Dict[str, Any]:
 
     field_findings = _field_findings(case.get("field_comparisons") or [])
     scope_results = [_assess_claim(item, evidence) for item in claims]
+    for claim_item, scope_result in zip(claims, scope_results):
+        if claim_item.get("recommended_action"):
+            scope_result["recommended_action"] = str(claim_item["recommended_action"])
     outcomes = {result["outcome"] for result in scope_results}
 
     entity_status = case.get("entity_resolution_status", "unknown")
@@ -444,7 +447,9 @@ def assess_case(case: Dict[str, Any]) -> Dict[str, Any]:
     for result in scope_results:
         if result["outcome"] != EV01:
             unresolved.append(f"{result['scope']}: {result['explanation']}")
-            if result["outcome"] == EV02:
+            if result.get("recommended_action"):
+                actions.append(result["recommended_action"])
+            elif result["outcome"] == EV02:
                 actions.append(
                     "Obtain the governing historical approval/recognition order for the claimed session."
                 )
