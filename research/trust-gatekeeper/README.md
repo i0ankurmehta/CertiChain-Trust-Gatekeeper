@@ -26,6 +26,7 @@ This is an analyst-assist research direction for cases where institution/program
 | [10 — Evidence adjudication rules](10_evidence_adjudication_rules.md) | Deterministic scope-specific outcomes, temporal/source rules, precedence, abstention and unit-test requirements |
 | [11 — Project boundary](11_project_boundary.md) | Why Trust Gatekeeper is independent from the original blockchain ledger project |
 | [12 — BGV workflow validation guide](12_bgv_workflow_validation_guide.md) | Interview script, workflow map, problem evidence log and Gate A decision worksheet |
+| [13 — Practitioner Interview 01](13_practitioner_interview_01.md) | First senior-practitioner account, workflow bottlenecks, product implications, evidence limits and follow-up questions |
 
 ## Current implementation
 
