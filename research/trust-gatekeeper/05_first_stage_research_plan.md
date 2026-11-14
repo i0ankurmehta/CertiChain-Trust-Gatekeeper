@@ -4,6 +4,8 @@
 
 > **Fieldwork update — 14 November 2026:** One senior BGV-industry practitioner has described a potentially important exception-handling problem: uneven ease of checking newer versus older/smaller-college credentials, manual registrar/courier follow-up, and difficulty resolving historical affiliation, programme-approval timing and study-centre jurisdiction from present-day checks alone. The recollection is recorded in [13 — Practitioner Interview 01](13_practitioner_interview_01.md). This is one qualitative account, not market-wide validation. Gate A remains open; continue with additional conversations, a workflow map, and independent review of vendor/source coverage.
 
+> **Workflow-mapping update — 15 November 2026:** Added [15 — Preliminary BGV Workflow Map](15_preliminary_bgv_workflow_map.md), structured from Practitioner Interview 01. It separates the reported faster digital lookup route from the reported legacy/manual exception route, identifies the historical claim families, and defines metrics and follow-up questions. This is a hypothesis map from one account, not a validated workflow. Gate A remains open; the current application and rules engine remain unchanged.
+
 **Version:** 0.1  
 **Status:** Execution plan  
 **Date:** 14 November 2026
