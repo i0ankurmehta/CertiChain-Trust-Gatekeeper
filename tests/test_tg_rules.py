@@ -179,5 +179,33 @@ class TestTrustGatekeeperRules(unittest.TestCase):
         self.assertEqual(result["scope_results"][-1]["outcome"], EV05)
 
 
+    def test_24_rohan_case_separates_historical_programme_mismatch_from_award_check(self):
+        result = assess_case(get_demo_case("Historical programme approval — Rohan"))
+        self.assertEqual(result["case_id"], "TG-DEMO-004")
+        self.assertEqual(result["primary_outcome"], EV02)
+        self.assertIn(EV05, result["secondary_findings"])
+
+        by_scope = {item["scope"]: item for item in result["scope_results"]}
+        self.assertEqual(by_scope["institution_existence"]["outcome"], EV01)
+        self.assertEqual(by_scope["college_affiliation"]["outcome"], EV01)
+        self.assertEqual(by_scope["programme_status"]["outcome"], EV02)
+        self.assertEqual(by_scope["individual_award"]["outcome"], EV05)
+
+        actions = " ".join(result["recommended_actions"])
+        self.assertIn("SYN4-ROHAN-ROLL-001", actions)
+        self.assertIn("BTech Computer Science", actions)
+        self.assertIn("Do not ask the registrar to decide programme approval", actions)
+
+    def test_25_rohan_2020_approval_without_complete_historical_scope_is_ev05(self):
+        case = get_demo_case("Historical programme approval — Rohan")
+        case["evidence"][-1].pop("period_scope_complete")
+        result = assess_case(case)
+        programme = [
+            item for item in result["scope_results"]
+            if item["scope"] == "programme_status"
+        ][0]
+        self.assertEqual(programme["outcome"], EV05)
+
+
 if __name__ == "__main__":
     unittest.main()
