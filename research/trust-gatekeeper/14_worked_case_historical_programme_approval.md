@@ -3,7 +3,7 @@
 **Case ID:** TG-DEMO-004  
 **Document ID:** TG-CASE-004  
 **Version:** 0.1  
-**Status:** Proposed synthetic case for rules and workflow validation  
+**Status:** Implemented as the fourth synthetic demo fixture; rules and workflow validation case  
 **Date:** 14 November 2026  
 **Data classification:** Entirely fictional; no real candidate or institution is represented
 
@@ -150,7 +150,11 @@ The query must not tell the registrar that fraud has occurred or ask the registr
 9. The explanation distinguishes supported entity facts, programme contradiction / insufficiency and the remaining award-level unknown.
 10. No outcome is phrased as an automatic candidate rejection or fraud finding.
 
-## 10. Research value
+## 10. Implementation status
+
+This scenario is now available in the Streamlit case selector as **Historical programme approval — Rohan** (`TG-DEMO-004`). The rules engine supports claim-specific recommended actions, including a distinct human-review step for the historical programme record and a narrowly scoped registrar confirmation for the fictional roll number. Two regression tests cover the explicit-exclusion versus incomplete-historical-coverage distinction. The fixture uses only synthetic IDs and placeholder evidence; no actual government citations or institution records are included.
+
+## 11. Research value
 
 This case tests whether Trust Gatekeeper can turn a broad manual investigation into:
 - a historically bounded set of separate claims;
