@@ -1,5 +1,7 @@
 # 05 — First-Stage Research Plan
 
+> **Execution status — 14 November 2026:** Trust Gatekeeper now has its own standalone repository. The deterministic rules engine, three synthetic demo cases, Streamlit demonstration UI and 23 unit tests are present as a baseline prototype. This does not mean the research gates have passed. The next action remains **Workstream A — validate the analyst workflow and assumed gap**. Do not expand the graph, ingestion or production feature set until practitioner evidence and ontology review justify that work. Use [12 — BGV Workflow Validation Guide](12_bgv_workflow_validation_guide.md) to conduct and document the exploratory conversations.
+
 **Version:** 0.1  
 **Status:** Execution plan  
 **Date:** 14 November 2026
