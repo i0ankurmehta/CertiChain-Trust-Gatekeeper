@@ -38,7 +38,7 @@ This is an analyst-assist research direction for cases where institution/program
 
 ## Current limitations
 
-The current UI runs prebuilt synthetic cases and displays findings. It does not yet implement actual PDF/image upload, OCR, CSV/JSON case intake, regulator-source ingestion, graph visualisation, or issuer verification.
+The current UI runs prebuilt synthetic cases, displays findings, and includes an evidence source register for fixture metadata. Actual source ingestion and live citation fetching are not implemented. It does not yet implement actual PDF/image upload, OCR, CSV/JSON case intake, regulator-source ingestion, graph visualisation, or issuer verification.
 
 The 240-case benchmark is a protocol only; the dataset has not yet been generated. Synthetic test success is not evidence of real-world fraud-detection performance.
 
