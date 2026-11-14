@@ -81,6 +81,77 @@ if assessment["scope_results"]:
 else:
     st.info("No claim-level checks were run because intake is blocked.")
 
+st.subheader("Evidence source register")
+evidence_records = case.get("evidence", [])
+if evidence_records:
+    st.caption(
+        "Inspect which source is attached to each claim, its stated effective period, "
+        "reference identifier and supporting excerpt."
+    )
+    if any(item.get("source_record_status", "").startswith("SYNTHETIC") for item in evidence_records):
+        st.warning(
+            "SYNTHETIC SOURCE RECORDS — the titles, publishers, reference numbers and excerpts below "
+            "are fabricated test placeholders. They are not government citations and have no live source URLs."
+        )
+
+    source_rows = []
+    for item in evidence_records:
+        sessions = item.get("valid_sessions")
+        if sessions:
+            effective_period = ", ".join(str(value) for value in sessions)
+        elif item.get("valid_from"):
+            end = item.get("valid_to")
+            if end:
+                effective_period = f"{item['valid_from']} to {end}"
+            elif item.get("open_ended") is True:
+                effective_period = f"From {item['valid_from']} (open-ended in fixture)"
+            else:
+                effective_period = f"From {item['valid_from']} (end date unknown)"
+        else:
+            effective_period = "Not specified"
+
+        source_rows.append(
+            {
+                "Evidence ID": item.get("evidence_id", "Not supplied"),
+                "Source": item.get("source_title", "Source title not supplied"),
+                "Publisher / issuer": item.get("publisher", "Not supplied"),
+                "Reference": item.get("reference_number", "Not supplied"),
+                "Source class": item.get("source_class", "Not supplied"),
+                "Effective period": effective_period,
+                "Review state": item.get("review_state", "Not supplied"),
+            }
+        )
+    st.dataframe(source_rows, use_container_width=True, hide_index=True)
+
+    for item in evidence_records:
+        evidence_label = item.get("evidence_id", "Evidence record")
+        source_label = item.get("source_title", item.get("source_id", "Untitled source"))
+        with st.expander(f"{evidence_label} — {source_label}"):
+            st.write(f"**Publisher / issuer:** {item.get('publisher', 'Not supplied')}")
+            st.write(f"**Reference number:** {item.get('reference_number', 'Not supplied')}")
+            st.write(
+                f"**Claim scope:** {item.get('claim_scope', 'Not supplied')} · "
+                f"**Subject:** {item.get('subject_id', 'Not supplied')}"
+            )
+            st.write(
+                f"**Assertion:** {item.get('predicate', 'Not supplied')} = "
+                f"{item.get('value', 'Not supplied')}"
+            )
+            st.write(f"**Source class:** {item.get('source_class', 'Not supplied')}")
+            st.write(f"**Review state:** {item.get('review_state', 'Not supplied')}")
+            if item.get("parent_source_id"):
+                st.write(f"**Parent source:** {item['parent_source_id']}")
+            st.markdown("**Supporting excerpt / fixture note**")
+            st.write(item.get("source_excerpt", "No excerpt supplied for this evidence record."))
+            if item.get("source_url"):
+                st.link_button("Open source record", item["source_url"])
+            else:
+                st.caption("No source URL supplied. Do not treat this entry as an independently accessible citation.")
+            if item.get("source_record_status"):
+                st.warning(item["source_record_status"])
+else:
+    st.info("No evidence source records were supplied for this synthetic case.")
+
 st.subheader("Source lineage")
 if assessment["dependency_groups"]:
     st.dataframe(
