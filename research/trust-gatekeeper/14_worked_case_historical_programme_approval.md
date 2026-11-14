@@ -110,7 +110,7 @@ The individual-award scope should remain **EV-05 — Evidence insufficient / con
 
 "The submitted scan claims a 2018 BTech in Artificial Intelligence and Data Science. The reviewed historical records in this synthetic case establish that the institute and university existed during the relevant period. However, the programme-approval record shows an applicable approval beginning in 2020 and, in this scenario, does not cover the earlier 2014–2018 cohort. This creates a programme-timeline inconsistency. The record does not establish whether the candidate's roll number received a different award. Please obtain issuer confirmation of the roll number, exact degree title, programme and award year."
 
-The application must display direct source references beside each statement. Until real, authoritative references have been loaded and reviewed, show these as synthetic evidence IDs, not as clickable or purported government citations.
+The application displays a source register with evidence IDs, synthetic source titles, publisher placeholders, reference identifiers, effective periods, excerpts and review states. Until real, authoritative references have been loaded and reviewed, these remain synthetic placeholders, not clickable or purported government citations.
 
 ## 7. Targeted registrar query
 
