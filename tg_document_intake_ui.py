@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from typing import Any, Dict
 
@@ -71,13 +72,17 @@ def render_document_intake() -> None:
         return
 
     pdf_bytes = uploaded.getvalue()
+    uploaded_sha = hashlib.sha256(pdf_bytes).hexdigest()
     st.caption(f"Selected file: {uploaded.name} · {len(pdf_bytes) / 1024:.1f} KB")
 
     if st.button("Extract claims and run historical check", type="primary"):
         try:
             extracted = extract_pdf_document(pdf_bytes)
+            for key, _label in EDITABLE_FIELDS:
+                st.session_state.pop(f"tg_claim_{key}", None)
             st.session_state["tg_document_intake"] = {
                 "filename": uploaded.name,
+                "file_sha256": uploaded_sha,
                 "extracted": extracted,
             }
             st.session_state.pop("tg_document_reviewed_claims", None)
@@ -87,7 +92,11 @@ def render_document_intake() -> None:
             return
 
     saved = st.session_state.get("tg_document_intake")
-    if not saved or saved.get("filename") != uploaded.name:
+    if (
+        not saved
+        or saved.get("filename") != uploaded.name
+        or saved.get("file_sha256") != uploaded_sha
+    ):
         st.caption("Select Extract claims and run historical check to process this PDF.")
         return
 
@@ -99,11 +108,12 @@ def render_document_intake() -> None:
             st.warning(warning)
 
     found_count = sum(1 for item in claims.values() if item.get("value"))
-    k1, k2, k3, k4 = st.columns(4)
+    k1, k2, k3, k4, k5 = st.columns(5)
     k1.metric("PDF pages", extracted["page_count"])
     k2.metric("Text pages", extracted["text_pages"])
     k3.metric("OCR pages", extracted["ocr_pages"])
-    k4.metric("Fields extracted", f"{found_count}/{len(claims)}")
+    k4.metric("Unreadable", extracted["unreadable_pages"])
+    k5.metric("Fields extracted", f"{found_count}/{len(claims)}")
 
     st.caption(
         f"SHA-256 fingerprint: {extracted['file_sha256'][:24]}… · "
@@ -195,6 +205,7 @@ def render_document_intake() -> None:
             "page_count": extracted["page_count"],
             "text_pages": extracted["text_pages"],
             "ocr_pages": extracted["ocr_pages"],
+            "unreadable_pages": extracted["unreadable_pages"],
             "warnings": extracted["warnings"],
             "claims": reviewed_claims,
         },
