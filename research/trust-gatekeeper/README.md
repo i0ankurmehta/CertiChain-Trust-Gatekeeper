@@ -32,6 +32,8 @@ This is an analyst-assist research direction for cases where institution/program
 | [16 — India historical source feasibility](16_india_historical_source_feasibility.md) | Desk review of UGC, UGC-DEB, AICTE, university affiliation, Gazette and AISHE source families; claim-level feasibility, limits and pilot proposal |
 | [17 — Punjab temporal affiliation source pilot](17_punjab_temporal_source_pilot.md) | Manually reviewed Punjab statutory and IKGPTU/MRSPTU sources; affiliation-transition timeline, claim mapping, limitations and unresolved college/course records |
 | [18 — Worked BBSBEC historical approval case](cases/18_bbsbec_2018_temporal_approval_case.md) | One real Punjab engineering college; 2015 territorial transition, 2018 IKGPTU affiliation evidence, AICTE branch approval/closure and a narrow registrar query |
+| **BBSBEC showable demo** (`../../tg_bbsbec_demo.py`) | Streamlit case workspace with public-source timeline, claim findings, IT closure review, CSE positive control, source links and registrar-query export |
+| **BBSBEC demo tests** (`../../tests/test_bbsbec_demo.py`) | Six tests for report dispositions, source metadata, timeline safeguards and CSV export |
 | [BBSBEC case evidence register](data/bbsbec_case_evidence_register.csv) | Six source-level evidence records with dates, scope, supported claims and limitations |
 | [BBSBEC synthetic benchmark fixture](data/bbsbec_synthetic_benchmark_fixture.json) | Machine-readable fictional BGV claim and expected review disposition; not yet consumed by the app |
 | [BBSBEC registrar confirmation request](templates/bbsbec_registrar_confirmation_request.md) | Ready-to-adapt narrow cohort/programme confirmation query for an authorised BGV enquiry |
@@ -42,11 +44,13 @@ This is an analyst-assist research direction for cases where institution/program
 - ../../tg_rules.py — deterministic TG-RULES-001 assessment engine.
 - ../../tg_demo_cases.py — fictional synthetic case fixtures.
 - ../../tests/test_tg_rules.py — 27 unit tests.
-- ../../app.py — minimal synthetic-case Streamlit interface.
+- ../../app.py — Streamlit workspace with BBSBEC analyst walkthrough as the default view.
+- ../../tg_bbsbec_demo.py — source-linked BBSBEC demo and export builders.
+- ../../tests/test_bbsbec_demo.py — six BBSBEC demo tests.
 
 ## Current limitations
 
-The current UI runs prebuilt synthetic cases, displays findings, and includes an evidence source register for fixture metadata. Actual source ingestion and live citation fetching are not implemented. It does not yet implement actual PDF/image upload, OCR, CSV/JSON case intake, regulator-source ingestion, graph visualisation, or issuer verification.
+The current UI includes a curated BBSBEC case workspace using public institutional sources and a fictional candidate. The view is manually assembled; it does not yet perform live source retrieval, PDF/image upload, OCR, automatic candidate-data extraction, graph computation or issuer verification.
 
 The 240-case benchmark is a protocol only; the dataset has not yet been generated. Synthetic test success is not evidence of real-world fraud-detection performance.
 
