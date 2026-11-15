@@ -311,7 +311,7 @@ def render_bbsbec_demo(st) -> None:
     with timeline_tab:
         st.markdown("#### What the records say over time")
         for item in report["timeline"]:
-            with st.container(border=True):
+            with st.container():
                 st.markdown(f"**{item['date']} · {item['event']}**")
                 st.write(item["detail"])
                 st.caption(f"Evidence: {item['source_ids']} · {item['state']}")
@@ -340,19 +340,19 @@ def render_bbsbec_demo(st) -> None:
 
         registrar_template = (
             "Subject: Cohort-specific verification request — "
-            f"{report['programme']}, academic session 2018–19\\n\\n"
-            "Dear Registrar / Examination Branch,\\n\\n"
+            f"{report['programme']}, academic session 2018–19\n\n"
+            "Dear Registrar / Examination Branch,\n\n"
             "We are conducting an authorised academic qualification verification "
             "with the candidate's consent. Please confirm from the official "
-            "admission and examination/award records:\\n\\n"
-            f"1. {report['registrar_question']}\\n"
+            "admission and examination/award records:\n\n"
+            f"1. {report['registrar_question']}\n"
             "2. The exact degree title / branch and award date recorded against "
-            "the roll number.\\n"
+            "the roll number.\n"
             "3. If a course-closure or teach-out arrangement applied, the order "
-            "or record governing this candidate's cohort.\\n\\n"
+            "or record governing this candidate's cohort.\n\n"
             "We will provide the minimum required identifying details through "
-            "your official secure verification procedure.\\n\\n"
-            "Regards,\\n[Authorised BGV organisation]\\n[Case reference]"
+            "your official secure verification procedure.\n\n"
+            "Regards,\n[Authorised BGV organisation]\n[Case reference]"
         )
         st.markdown("#### Draft registrar request")
         st.code(registrar_template, language="text")
