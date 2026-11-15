@@ -23,7 +23,7 @@ SOURCES: List[Dict[str, str]] = [
         "publisher": "Government of Punjab",
         "date": "12 Feb 2015",
         "scope": "Statutory university identity and territorial area",
-        "fact": "Section 5 names Fatehgarh Sahib within MRSPTU's territorial area and sets out an association mechanism with a separate State notification date.",
+        "fact": "Section 5 names Fatehgarh Sahib within MRSPTU's territorial area, sets out an association mechanism with a separate State notification date, and contains a student transition proviso.",
         "limitation": "The Act alone does not prove BBSBEC's exact affiliation or a student's awarding university.",
         "url": "https://punjab.gov.in/wp-content/uploads/2023/01/The-Maharaj-Ranjit-State-Technical-University-Act-2014.pdf",
         "custody": "Government-hosted statutory PDF",
