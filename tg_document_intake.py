@@ -1,9 +1,4 @@
-"""PDF intake, claim extraction and scoped historical-record comparison.
-
-This module processes PDFs in memory. It does not persist uploads, authenticate
-a degree, or make candidate decisions. Scanned-page OCR is optional and requires
-the Tesseract executable to be installed on the host.
-"""
+"""PDF intake, claim extraction and scoped historical-record comparison."""
 
 from __future__ import annotations
 
@@ -97,12 +92,7 @@ def _normalise_session(value: str) -> str:
 
 def _make_field(value: Optional[str] = None, page: Optional[int] = None,
                 quote: str = "", method: str = "not_detected") -> Dict[str, Any]:
-    return {
-        "value": value,
-        "page": page,
-        "quote": quote,
-        "method": method,
-    }
+    return {"value": value, "page": page, "quote": quote, "method": method}
 
 
 def _find_pattern(pages: List[Dict[str, Any]], patterns: Tuple[str, ...],
@@ -153,9 +143,7 @@ def _find_university(pages: List[Dict[str, Any]]) -> Dict[str, Any]:
         return known
     return _find_pattern(
         pages,
-        (
-            r"(?:affiliated\s+to|affiliating\s+university|awarding\s+university|university\s+name)\s*[:\-]?\s*([^\n]{4,100})",
-        ),
+        (r"(?:affiliated\s+to|affiliating\s+university|awarding\s+university|university\s+name)\s*[:\-]?\s*([^\n]{4,100})",),
     )
 
 
@@ -167,9 +155,7 @@ def extract_claims(pages: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
         "degree_title": _find_pattern(pages, FIELD_PATTERNS["degree_title"]),
         "institution": _find_known_name(pages, INSTITUTION_ALIASES),
         "programme": _find_programme(pages),
-        "academic_session": _find_pattern(
-            pages, FIELD_PATTERNS["academic_session"], normalise_session=True
-        ),
+        "academic_session": _find_pattern(pages, FIELD_PATTERNS["academic_session"], normalise_session=True),
         "university_or_affiliating_body": _find_university(pages),
         "award_year": _find_pattern(pages, FIELD_PATTERNS["award_year"]),
     }
@@ -201,6 +187,7 @@ def extract_pdf_document(pdf_bytes: bytes, ocr_scanned_pages: bool = True) -> Di
     warnings: List[str] = []
     ocr_pages = 0
     text_pages = 0
+    unreadable_pages = 0
 
     try:
         for index, page in enumerate(document):
@@ -208,7 +195,9 @@ def extract_pdf_document(pdf_bytes: bytes, ocr_scanned_pages: bool = True) -> Di
             method = "embedded text"
             compact_text = re.sub(r"\W", "", text)
 
-            if len(compact_text) < 18 and ocr_scanned_pages:
+            if len(compact_text) >= 18:
+                text_pages += 1
+            elif ocr_scanned_pages:
                 try:
                     import pytesseract
                     from PIL import Image
@@ -220,16 +209,23 @@ def extract_pdf_document(pdf_bytes: bytes, ocr_scanned_pages: bool = True) -> Di
                         text = ocr_text
                         method = "OCR"
                         ocr_pages += 1
-                    else:
+                    elif compact_text:
                         text_pages += 1
+                    else:
+                        method = "OCR returned no text"
+                        unreadable_pages += 1
                 except Exception as exc:
+                    method = "OCR unavailable"
+                    unreadable_pages += 1
                     warnings.append(
                         f"Page {index + 1}: OCR could not run ({type(exc).__name__}). "
                         "Install Tesseract OCR to process scanned pages."
                     )
-                    text_pages += 1
-            else:
+            elif compact_text:
                 text_pages += 1
+            else:
+                method = "no embedded text"
+                unreadable_pages += 1
 
             page_records.append({
                 "page": index + 1,
@@ -250,6 +246,7 @@ def extract_pdf_document(pdf_bytes: bytes, ocr_scanned_pages: bool = True) -> Di
         "page_count": len(page_records),
         "text_pages": text_pages,
         "ocr_pages": ocr_pages,
+        "unreadable_pages": unreadable_pages,
         "pages": page_records,
         "claims": claims,
         "warnings": warnings,
@@ -262,9 +259,7 @@ def compare_claims_to_reference_pack(claims: Dict[str, Dict[str, Any]]) -> Dict[
     programme = _clean((claims.get("programme") or {}).get("value") or "")
     session = _normalise_session(_clean((claims.get("academic_session") or {}).get("value") or ""))
 
-    institution_match = "BBSBEC" in _normalise(institution) or (
-        "BABA BANDA SINGH BAHADUR" in _normalise(institution)
-    )
+    institution_match = "BBSBEC" in _normalise(institution) or "BABA BANDA SINGH BAHADUR" in _normalise(institution)
 
     report: Dict[str, Any] = {
         "reference_pack": "Punjab / BBSBEC 2018–19",
@@ -332,7 +327,13 @@ def compare_claims_to_reference_pack(claims: Dict[str, Dict[str, Any]]) -> Dict[
         return report
 
     programme_norm = _normalise(programme)
-    if programme_norm in {"INFORMATION TECHNOLOGY", "B TECH IT"}:
+    is_it = "INFORMATION TECHNOLOGY" in programme_norm or programme_norm == "B TECH IT"
+    is_cse = (
+        programme_norm == "CSE"
+        or ("COMPUTER SCIENCE" in programme_norm and "ENGINEERING" in programme_norm)
+    )
+
+    if is_it:
         report["finding"] = "REVIEW REQUIRED — COURSE CLOSURE SIGNAL"
         report["detail"] = (
             "The 2018–19 AICTE EoA lists Information Technology under courses applied for closure "
@@ -345,11 +346,11 @@ def compare_claims_to_reference_pack(claims: Dict[str, Dict[str, Any]]) -> Dict[
             "basis": "AICTE EoA records approved course-closure status; cohort effect is unresolved.",
             "source_ids": ["SRC-04", "SRC-06"],
         })
-        report["sources"].extend(["SRC-06"])
+        report["sources"].append("SRC-06")
         report["unresolved_questions"].append(
             "For the candidate's roll number, was admission/registration to B.Tech Information Technology valid for 2018–19, and did an approved teach-out, continuation or migration arrangement apply?"
         )
-    elif programme_norm in {"COMPUTER SCIENCE ENGINEERING", "CSE"}:
+    elif is_cse:
         report["finding"] = "CONTEXT SUPPORTED — INDIVIDUAL AWARD UNVERIFIED"
         report["detail"] = (
             "The 2018–19 AICTE EoA lists B.Tech Computer Science & Engineering with approved intake 180, "
@@ -377,7 +378,10 @@ def compare_claims_to_reference_pack(claims: Dict[str, Dict[str, Any]]) -> Dict[
 
     claimed_body = _clean((claims.get("university_or_affiliating_body") or {}).get("value") or "")
     if claimed_body:
-        if _normalise(claimed_body) in {"IKGPTU", "I K GUJRAL PUNJAB TECHNICAL UNIVERSITY", "PUNJAB TECHNICAL UNIVERSITY", "PTU"}:
+        if _normalise(claimed_body) in {
+            "IKGPTU", "I K GUJRAL PUNJAB TECHNICAL UNIVERSITY",
+            "PUNJAB TECHNICAL UNIVERSITY", "PTU",
+        }:
             body_note = "The extracted university name is consistent with the IKGPTU name in the 2018–19 AICTE EoA."
         else:
             body_note = (
