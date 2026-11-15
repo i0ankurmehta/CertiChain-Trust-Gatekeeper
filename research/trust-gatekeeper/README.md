@@ -30,6 +30,8 @@ This is an analyst-assist research direction for cases where institution/program
 | [14 — Worked historical programme-approval case](14_worked_case_historical_programme_approval.md) | Synthetic case separating institutional existence, affiliation, programme authorisation and individual award verification; includes targeted registrar query |
 | [15 — Preliminary BGV workflow map](15_preliminary_bgv_workflow_map.md) | Workflow hypothesis from Interview 01; stages, bottlenecks, metrics and follow-up validation questions |
 | [16 — India historical source feasibility](16_india_historical_source_feasibility.md) | Desk review of UGC, UGC-DEB, AICTE, university affiliation, Gazette and AISHE source families; claim-level feasibility, limits and pilot proposal |
+| [17 — Punjab temporal affiliation source pilot](17_punjab_temporal_source_pilot.md) | Manually reviewed Punjab statutory and IKGPTU/MRSPTU sources; affiliation-transition timeline, claim mapping, limitations and unresolved college/course records |
+| [Punjab source register CSV](data/punjab_source_register.csv) | 16 source records with publisher, dates, claim scope, limitations and retrieval status |
 
 ## Current implementation
 
