@@ -19,8 +19,8 @@ st.set_page_config(
 st.title("CertiChain | Trust Gatekeeper")
 st.caption("Temporal and provenance-aware academic credential evidence triage")
 st.warning(
-    "RESEARCH PROTOTYPE — synthetic fixtures only. Do not upload or enter real candidate, "
-    "student, university or personal data. This tool does not authenticate an individual award."
+    "RESEARCH PROTOTYPE — curated public institutional records + fictional candidate profiles. "
+    "Do not upload real candidate, student or personal data. This tool does not authenticate an individual award."
 )
 
 with st.sidebar:
