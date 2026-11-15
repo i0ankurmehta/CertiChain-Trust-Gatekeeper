@@ -89,7 +89,7 @@ TIMELINE: List[Dict[str, str]] = [
     {
         "date": "12 Feb 2015",
         "event": "MRSPTU Act published",
-        "detail": "Punjab Act No. 5 of 2015 defines MRSPTU's territorial area, including Fatehgarh Sahib, and an affiliation mechanism.",
+        "detail": "Punjab Act No. 5 of 2015 defines MRSPTU's territorial area, including Fatehgarh Sahib, sets an affiliation mechanism and includes a student transition proviso.",
         "source_ids": "SRC-01",
         "state": "Statutory context",
     },
