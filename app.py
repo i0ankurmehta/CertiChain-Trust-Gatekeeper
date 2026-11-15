@@ -7,6 +7,7 @@ import streamlit as st
 
 from tg_demo_cases import DEMO_CASES, get_demo_case
 from tg_rules import OUTCOME_LABELS, assess_case
+from tg_bbsbec_demo import render_bbsbec_demo
 
 
 st.set_page_config(
@@ -23,15 +24,24 @@ st.warning(
 )
 
 with st.sidebar:
-    st.header("Synthetic case")
-    selected_case = st.selectbox("Choose a demonstration case", list(DEMO_CASES))
-    demo_case = get_demo_case(selected_case)
-    st.caption(demo_case["description"])
-    st.divider()
-    st.subheader("Intake gates")
-    authority_ok = st.checkbox("Processing authority documented (fixture)", value=True)
-    input_safe = st.checkbox("Input passed safety checks (fixture)", value=True)
-    st.caption("These controls test the intake gate. They are not a legal consent workflow.")
+    st.header("Case workspace")
+    case_options = ["BBSBEC 2018–19 — analyst demo", *DEMO_CASES.keys()]
+    selected_case = st.selectbox("Choose a case", case_options)
+    if selected_case == "BBSBEC 2018–19 — analyst demo":
+        st.caption("Source-backed institution case with a fictional candidate profile.")
+        st.caption("Switch between an IT course-closure review and a CSE positive control.")
+    else:
+        demo_case = get_demo_case(selected_case)
+        st.caption(demo_case["description"])
+        st.divider()
+        st.subheader("Intake gates")
+        authority_ok = st.checkbox("Processing authority documented (fixture)", value=True)
+        input_safe = st.checkbox("Input passed safety checks (fixture)", value=True)
+        st.caption("These controls test the intake gate. They are not a legal consent workflow.")
+
+if selected_case == "BBSBEC 2018–19 — analyst demo":
+    render_bbsbec_demo(st)
+    st.stop()
 
 case = get_demo_case(selected_case)
 case["processing_authority_documented"] = authority_ok
