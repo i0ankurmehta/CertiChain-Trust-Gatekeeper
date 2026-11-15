@@ -37,7 +37,7 @@ class TestBBSBECDemo(unittest.TestCase):
     def test_05_timeline_keeps_primary_notification_gap_visible(self):
         items = " ".join(row["state"] + " " + row["detail"] for row in TIMELINE)
         self.assertIn("Primary State notification still needed", items)
-        self.assertIn("teach-out", items.lower())
+        self.assertIn("transition proviso", items.lower())
 
     def test_06_csv_register_is_machine_readable(self):
         rows = list(csv.DictReader(io.StringIO(build_sources_csv())))
