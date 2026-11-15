@@ -1,0 +1,81 @@
+{
+  "fixture_id": "TG-PB-BBSBEC-2018-001",
+  "fixture_type": "research_only_synthetic",
+  "institution": {
+    "name": "Baba Banda Singh Bahadur Engineering College",
+    "short_name": "BBSBEC",
+    "district": "Fatehgarh Sahib",
+    "state": "Punjab",
+    "aicte_permanent_id": "1-14182101"
+  },
+  "selected_claim": {
+    "candidate_id": "SYN-CANDIDATE-R",
+    "document_type": "scanned_degree",
+    "programme": "B.Tech",
+    "branch": "Information Technology",
+    "admission_session": "2018-19",
+    "completion_year": 2022,
+    "claimed_awarding_body": "I.K. Gujral Punjab Technical University",
+    "synthetic_roll_number": "SYN-BBS-2018-IT-001",
+    "source_document_verified": false
+  },
+  "evidence": [
+    {
+      "evidence_id": "EV-01",
+      "claim_scope": "territorial_jurisdiction",
+      "effective_start": "2015-02-12",
+      "value": "Fatehgarh Sahib is within MRSPTU territorial area",
+      "status": "supported_by_statute"
+    },
+    {
+      "evidence_id": "EV-02",
+      "claim_scope": "general_affiliation_transition",
+      "effective_start": "2015-07-01",
+      "value": "MRSPTU Board agenda records State notification 7/33/2015-4TE2/5230/9/4 dated 2015-06-30 and effective date 2015-07-01",
+      "status": "official_university_record_references_primary_notification",
+      "primary_state_notification_available": false
+    },
+    {
+      "evidence_id": "EV-03",
+      "claim_scope": "college_roster_and_programme",
+      "academic_session": "2018-19",
+      "value": "BBSBEC appears in IKGPTU brochure; named B.Tech branches and intake are listed",
+      "status": "supported_by_university_brochure"
+    },
+    {
+      "evidence_id": "EV-04",
+      "claim_scope": "affiliating_body",
+      "academic_session": "2018-19",
+      "value": "AICTE EoA identifies IKGPTU as affiliating body for BBSBEC",
+      "status": "supported_by_aicte_eoa"
+    },
+    {
+      "evidence_id": "EV-04",
+      "claim_scope": "programme_closure",
+      "academic_session": "2018-19",
+      "programme": "B.Tech Information Technology",
+      "value": "AICTE EoA lists IT under courses applied for closure; closure status approved",
+      "status": "supported_by_aicte_eoa",
+      "cohort_effect": "unknown_pending_approval_and_teachout_record"
+    }
+  ],
+  "expected_assessment": {
+    "disposition": "review_required",
+    "primary_finding": "possible_admission_session_vs_course_closure_conflict",
+    "confidence": "limited_to_public_session_level_evidence",
+    "human_review_required": true,
+    "must_not_conclude": [
+      "candidate_fraud",
+      "degree_invalid",
+      "course_never_authorised",
+      "student_could_not_complete_after_closure"
+    ],
+    "next_action": "Confirm roll number's admission and award-register entries, and obtain the AICTE/university closure or teach-out record applying to the candidate's cohort."
+  },
+  "limitations": [
+    "No real candidate/student record was accessed.",
+    "The fixture is not connected to the Streamlit app or rules engine.",
+    "The original 2015 State Government notification and BBSBEC's college-specific 2018 affiliation-choice acceptance order remain outstanding.",
+    "AICTE EoA PDF was parsed as text; screenshot service returned cache miss."
+  ]
+}
