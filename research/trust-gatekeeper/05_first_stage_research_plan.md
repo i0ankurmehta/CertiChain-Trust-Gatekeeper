@@ -1,3 +1,5 @@
+> **Punjab source-pilot update — 15 November 2026:** Added [17 — Punjab Temporal Affiliation Source Pilot](17_punjab_temporal_source_pilot.md) and [the 16-record source register](data/punjab_source_register.csv). The pilot found a real 2015 territorial affiliation transition to MRSPTU and a 2018 statutory one-time college choice between MRSPTU and IKGPTU, with a distinct transition provision for 2015–16 students. This supports a temporal research benchmark, but college-specific choice/acceptance records and branch-specific AICTE approval letters remain missing. PDF screenshot retrieval was not available for several reviewed documents; the report records those limits. No app code was changed. Gate A remains open.
+
 # 05 — First-Stage Research Plan
 
 > **Execution status — 14 November 2026:** Trust Gatekeeper now has its own standalone repository. The deterministic rules engine, three synthetic demo cases, Streamlit demonstration UI and 25 unit tests are present as a baseline prototype. This does not mean the research gates have passed. The next action remains **Workstream A — validate the analyst workflow and assumed gap**. Do not expand the graph, ingestion or production feature set until practitioner evidence and ontology review justify that work. Use [12 — BGV Workflow Validation Guide](12_bgv_workflow_validation_guide.md) to conduct and document the exploratory conversations.
@@ -107,8 +109,8 @@ For the current phase:
 - No new dependencies are added to the existing application's requirements.
 - No application feature is implemented from the benchmark until the research gates are passed.
 
-A separate repository should be created once this track has independent executable code, data-generation tooling or its own dependency/environment requirements. At that point the folder can be extracted cleanly and versioned independently.
+This research track now lives in the standalone repository `i0ankurmehta/CertiChain-Trust-Gatekeeper`. Keep it separate from the original CertiChain blockchain demonstration repository. Do not copy Trust Gatekeeper research or application changes back into the original project unless the user explicitly requests that integration.
 
 ## Immediate next action
 
-Start with Workstream A: validate the analyst workflow and the assumed gap. The next code task should not be building the graph; it should be a deterministic synthetic case specification only after the problem and ontology pass review.
+Continue the manual Punjab source pilot by obtaining (1) the State Government notification implementing section 5(2) of the MRSPTU Act, (2) a named college's 2017–18 affiliation and 2018 one-time-choice acceptance record, and (3) institution-specific AICTE LoA/EoA for one named branch. Ask a BGV analyst to review the resulting evidence-gap report and measure whether it narrows registrar follow-up. Do not implement a crawler, graph store or app feature until these evidence and workflow gates are reviewed.
