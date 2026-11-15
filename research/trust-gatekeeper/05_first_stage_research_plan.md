@@ -1,3 +1,5 @@
+> **Prototype-readiness update — 15 November 2026:** The Streamlit app now opens a curated BBSBEC 2018–19 analyst case workspace by default. It includes a switch between an IT course-closure review and a CSE positive control, a dated evidence timeline, source cards with direct links and custody limitations, claim-by-claim findings, an analyst next step, and downloadable JSON/CSV plus a registrar-request draft. The candidate is fictional; the institutional sources are public. This is manually curated and not live OCR/source ingestion. Six new demo tests were added; the combined suite is 33 tests. See [the short demo script](../../DEMO_WALKTHROUGH.md).
+
 > **Worked-case update — 15 November 2026:** Added [18 — BBSBEC Historical Approval Case](cases/18_bbsbec_2018_temporal_approval_case.md), a source-driven 2015–19 reconstruction for Baba Banda Singh Bahadur Engineering College, Fatehgarh Sahib. The AICTE EoA dated 10 April 2018 records IKGPTU as the affiliating body for 2018–19, B.Tech CSE intake 180, and approved closure status for B.Tech IT in that session. Added a six-source evidence register, synthetic benchmark fixture and a precise registrar-query template. The college-specific 2018 affiliation-choice acceptance order, original 30 June 2015 State notification and student-level award record remain open. App code remains untouched.
 
 > **Punjab source-pilot update — 15 November 2026:** Added [17 — Punjab Temporal Affiliation Source Pilot](17_punjab_temporal_source_pilot.md) and [the 16-record source register](data/punjab_source_register.csv). The pilot found a real 2015 territorial affiliation transition to MRSPTU and a 2018 statutory one-time college choice between MRSPTU and IKGPTU, with a distinct transition provision for 2015–16 students. This supports a temporal research benchmark, but college-specific choice/acceptance records and branch-specific AICTE approval letters remain missing. PDF screenshot retrieval was not available for several reviewed documents; the report records those limits. No app code was changed. Gate A remains open.
@@ -107,9 +109,10 @@ After Gates A–D:
 
 For the current phase:
 - Research files live under `research/trust-gatekeeper/`.
-- The existing Streamlit app, EACT pages and tests remain untouched.
-- No new dependencies are added to the existing application's requirements.
-- No application feature is implemented from the benchmark until the research gates are passed.
+- The separate Trust Gatekeeper application now has a showable BBSBEC analyst walkthrough, but the original blockchain repository remains untouched.
+- The BBSBEC view is a curated source-backed case workspace; it is not a live document-ingestion or automated legal-decision system.
+- No new Python dependencies are added; the runtime remains Streamlit only.
+- Further automation should be based on practitioner feedback about whether the case brief reduces investigation effort.
 
 This research track now lives in the standalone repository `i0ankurmehta/CertiChain-Trust-Gatekeeper`. Keep it separate from the original CertiChain blockchain demonstration repository. Do not copy Trust Gatekeeper research or application changes back into the original project unless the user explicitly requests that integration.
 
