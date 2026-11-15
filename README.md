@@ -1,8 +1,7 @@
 # CertiChain — Trust Gatekeeper
 
 **Research focus:** Explainable academic-credential evidence triage for Indian background-verification (BGV) workflows  
-**Data:** Public institutional records with fictional candidate profiles  
-**Current stage:** Deterministic rules engine and showable analyst case-review prototype
+**Current stage:** AICTE EoA PDF intake, deterministic extraction and programme-scope review, plus research case workspace
 
 ## Independent project boundary
 
@@ -10,46 +9,59 @@ This repository is the standalone **Trust Gatekeeper** project. The earlier bloc
 
 These are two separate projects and codebases. This repository does not replace, merge into, or contain a copy of the original blockchain application's active code.
 
-## What this project does
+## What works now
 
-Trust Gatekeeper is an explainable analyst-assist research prototype. It evaluates scoped evidence claims about institutional relationships, programme status, historical periods, source conflicts, and source lineage. It keeps individual award verification separate from institution/programme context.
+### 1. AICTE EoA document analysis
 
-It is **not** a degree-issuing platform, credential repository, blockchain ledger, automated candidate-rejection system, or proof-of-fraud detector.
+The default workspace accepts an AICTE Extension of Approval (EoA) PDF and performs a real text-layer extraction. It extracts available identifiers and institutional fields, including:
+
+- institution name and permanent institute ID;
+- application ID and AICTE file number;
+- approval date and academic session;
+- affiliating body;
+- approved-course rows and approved intake;
+- course-closure rows and stated closure status.
+
+The user selects a programme. The rules then produce a scoped finding and a targeted registrar question. For the real BBSBEC 2018–19 AICTE-generated EoA record, the intended demonstration is to identify the CSE approved-intake entry and the Information Technology closure entry, then explain what the latter does **not** establish about prior cohorts or teach-out rights.
+
+This is a document-specific deterministic parser, not a general AI document-understanding system. It supports text-based AICTE EoA PDFs only. It does not OCR scanned PDFs, process arbitrary degree certificates, fetch live sources, or authenticate individual awards. A public-source text excerpt is available as a one-click parser test; the linked original PDF can be downloaded and uploaded to exercise the PDF extraction path.
+
+### 2. Historical case workspace
+
+The historical case workspace retains the BBSBEC source review, public-source timeline, IT closure review, CSE positive control, registrar request and downloads. Its fictional candidate is only a presentation fixture. The older synthetic rules-engine cases remain available there too.
 
 ## Run locally
 
-```bash
-python3 -m pip install -r requirements.txt
-streamlit run app.py
-```
+Install the dependencies from requirements.txt and run Streamlit with app.py.
 
-The active interface uses prebuilt synthetic cases only. Do not enter or upload real candidate, student, university, or other personal data.
+Start in **Document analysis**. Download the [public BBSBEC 2018–19 AICTE EoA PDF](https://bbsbec.edu.in/wp-content/uploads/2019/04/AICTE-EOA-Report_2018-19.pdf), upload it, and choose Information Technology or Computer Science & Engineering.
+
+Do not upload real candidate/student personal data. The prototype is not approved for operational BGV decisions.
 
 ## Repository contents
 
-- `app.py` — Streamlit case workspace; opens the BBSBEC 2018–19 evidence walkthrough by default and retains the synthetic rules-engine cases.
-- `tg_bbsbec_demo.py` — curated BBSBEC case view, public-source register, timeline, IT closure review, CSE positive control, analyst brief and registrar-request export.
-- `tg_rules.py` — deterministic TG-RULES-001 evidence-adjudication engine.
-- `tg_demo_cases.py` — fictional rules-engine demonstration cases.
-- `tests/test_tg_rules.py` — 27 rules-engine tests.
-- `tests/test_bbsbec_demo.py` — 6 tests for the BBSBEC case brief, source register and expected review boundaries.
-- `DEMO_WALKTHROUGH.md` — short presenter script for showing the prototype.
-- `research/trust-gatekeeper/` — problem definition, competitor gap analysis, ontology, benchmark protocol, research plan, operational standards, analyst checklist, worked cases, adjudication rules, and project-boundary note.
+- app.py — Streamlit workspaces and navigation.
+- tg_document_intake.py — PDF text extraction, AICTE EoA parser, scoped programme review, sample runner and UI.
+- tests/test_document_intake.py — document-parser and programme-review tests.
+- tg_bbsbec_demo.py — curated BBSBEC case and analyst brief builders.
+- tg_rules.py — deterministic TG-RULES-001 rules engine.
+- tg_demo_cases.py — fictional rules-engine test cases.
+- tests/test_tg_rules.py — rules-engine tests.
+- tests/test_bbsbec_demo.py — BBSBEC research-case tests.
+- DEMO_WALKTHROUGH.md — walkthrough for the historical case workspace.
+- research/trust-gatekeeper/ — research pack and source registers.
 
-## Current limitations
+## Important interpretation boundaries
 
-The Streamlit interface now includes a curated, source-linked BBSBEC case workspace with an IT closure-review scenario and a CSE positive control. It displays the historical timeline, claim-by-claim findings, evidence-source limitations and a targeted registrar question. This is a manually curated demonstration, not live automated research. It still does not implement candidate PDF/image upload, OCR, automatic CSV/JSON intake, live regulator-source ingestion, a dynamically generated graph, or individual issuer verification.
+- A course appearing in an AICTE EoA approved-course table is not proof of a particular student's admission or award.
+- A course-closure entry is a programme-level signal; it does not by itself establish the position of already-admitted cohorts, teach-out, migration or individual award validity.
+- A course not found in one uploaded EoA is a document-coverage gap, not proof of non-approval.
+- Public-source absence is not proof that a qualification is invalid.
+- Individual award verification still requires issuer or authorised award-register confirmation.
+- The parser reports extracted text and source excerpts; it does not independently validate the authenticity of the uploaded PDF against AICTE's database.
 
 ## Tests
 
-```bash
-python3 -m unittest discover -s tests -v
-```
+Run the suite with python3 -m unittest discover -s tests -v.
 
-GitHub Actions compiles the active application and runs the unit tests on pushes to `main` and pull requests. The current suite contains 33 tests: 27 rules-engine tests and 6 BBSBEC-demo tests.
-
-## Research boundaries
-
-The benchmark design is a protocol; the 240-case dataset has not yet been generated. Passing synthetic tests does not establish real-world fraud-detection accuracy. Public-source absence does not prove a qualification is invalid, and this prototype does not authenticate an individual's award without the issuer.
-
-See the [research index](research/trust-gatekeeper/README.md) for the research pack and implementation boundaries.
+GitHub Actions compiles the application and runs all unit tests on pushes to main and pull requests. Passing parser tests demonstrates expected behaviour on the included public-source text fixture, not real-world extraction accuracy across arbitrary AICTE PDFs.
