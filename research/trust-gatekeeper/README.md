@@ -31,6 +31,10 @@ This is an analyst-assist research direction for cases where institution/program
 | [15 — Preliminary BGV workflow map](15_preliminary_bgv_workflow_map.md) | Workflow hypothesis from Interview 01; stages, bottlenecks, metrics and follow-up validation questions |
 | [16 — India historical source feasibility](16_india_historical_source_feasibility.md) | Desk review of UGC, UGC-DEB, AICTE, university affiliation, Gazette and AISHE source families; claim-level feasibility, limits and pilot proposal |
 | [17 — Punjab temporal affiliation source pilot](17_punjab_temporal_source_pilot.md) | Manually reviewed Punjab statutory and IKGPTU/MRSPTU sources; affiliation-transition timeline, claim mapping, limitations and unresolved college/course records |
+| [18 — Worked BBSBEC historical approval case](cases/18_bbsbec_2018_temporal_approval_case.md) | One real Punjab engineering college; 2015 territorial transition, 2018 IKGPTU affiliation evidence, AICTE branch approval/closure and a narrow registrar query |
+| [BBSBEC case evidence register](data/bbsbec_case_evidence_register.csv) | Six source-level evidence records with dates, scope, supported claims and limitations |
+| [BBSBEC synthetic benchmark fixture](data/bbsbec_synthetic_benchmark_fixture.json) | Machine-readable fictional BGV claim and expected review disposition; not yet consumed by the app |
+| [BBSBEC registrar confirmation request](templates/bbsbec_registrar_confirmation_request.md) | Ready-to-adapt narrow cohort/programme confirmation query for an authorised BGV enquiry |
 | [Punjab source register CSV](data/punjab_source_register.csv) | 16 source records with publisher, dates, claim scope, limitations and retrieval status |
 
 ## Current implementation
