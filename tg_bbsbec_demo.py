@@ -154,8 +154,8 @@ def build_case_report(programme: str = "Information Technology") -> Dict[str, An
         programme_detail = (
             "The 2018–19 AICTE EoA lists Computer Science & Engineering with "
             "approved intake 180. The IKGPTU brochure also lists BBSBEC and CSE. "
-            "This supports the institution/programme context for that session, "
-            "not the candidate's individual graduation."
+            "This supports the institution/programme context for that session. "
+            "The candidate's individual award remains unverified."
         )
         next_question = (
             "Does the candidate's roll number appear in the official 2022 award "
