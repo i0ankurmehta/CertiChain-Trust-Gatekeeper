@@ -1,4 +1,4 @@
-"""CertiChain Trust Gatekeeper — synthetic research prototype UI."""
+"""CertiChain Trust Gatekeeper — document intake and evidence review UI."""
 
 import json
 from datetime import datetime, timezone
@@ -8,6 +8,7 @@ import streamlit as st
 from tg_demo_cases import DEMO_CASES, get_demo_case
 from tg_rules import OUTCOME_LABELS, assess_case
 from tg_bbsbec_demo import render_bbsbec_demo
+from tg_document_intake import render_document_intake
 
 
 st.set_page_config(
@@ -19,11 +20,25 @@ st.set_page_config(
 st.title("CertiChain | Trust Gatekeeper")
 st.caption("Temporal and provenance-aware academic credential evidence triage")
 st.warning(
-    "RESEARCH PROTOTYPE — curated public institutional records + fictional candidate profiles. "
-    "Do not upload real candidate, student or personal data. This tool does not authenticate an individual award."
+    "RESEARCH PROTOTYPE — document analysis currently supports text-based AICTE EoA PDFs. "
+    "The historical case view uses curated public records and fictional candidate profiles. "
+    "Do not upload real candidate/student personal data. Individual awards are not authenticated."
 )
 
 with st.sidebar:
+    st.header("Workspace")
+    workspace = st.radio(
+        "Open",
+        ["Document analysis", "Historical case review"],
+        index=0,
+    )
+
+if workspace == "Document analysis":
+    render_document_intake(st)
+    st.stop()
+
+with st.sidebar:
+    st.divider()
     st.header("Case workspace")
     case_options = ["BBSBEC 2018–19 — analyst demo", *DEMO_CASES.keys()]
     selected_case = st.selectbox("Choose a case", case_options)
@@ -198,7 +213,7 @@ with right:
         st.write("No additional action was produced.")
 
 with st.expander("Inspect synthetic case evidence and inputs"):
-    st.markdown(f"**Input mode:** `{case.get('input_mode', 'not specified')}`")
+    st.markdown(f"**Input mode:** {case.get('input_mode', 'not specified')}")
     st.markdown("**Field comparisons**")
     st.dataframe(case.get("field_comparisons", []), use_container_width=True, hide_index=True)
     st.markdown("**Required claims**")
@@ -223,6 +238,6 @@ st.download_button(
 
 st.divider()
 st.caption(
-    "TG-RULES-001 v0.1 · Synthetic-only · Human review required for unresolved findings. "
-    "Actual PDF/image upload, OCR, source ingestion and issuer verification are not implemented yet."
+    "TG-RULES-001 v0.1 · Synthetic-only rules-engine cases · Human review required for unresolved findings. "
+    "The document-analysis workspace is a separate text-PDF EoA parser; it does not perform OCR or award authentication."
 )
