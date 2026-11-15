@@ -1,4 +1,4 @@
-"""CertiChain Trust Gatekeeper — synthetic research prototype UI."""
+"""CertiChain Trust Gatekeeper — evidence-triage prototype UI."""
 
 import json
 from datetime import datetime, timezone
@@ -8,6 +8,7 @@ import streamlit as st
 from tg_demo_cases import DEMO_CASES, get_demo_case
 from tg_rules import OUTCOME_LABELS, assess_case
 from tg_bbsbec_demo import render_bbsbec_demo
+from tg_document_intake_ui import render_document_intake
 
 
 st.set_page_config(
@@ -19,15 +20,23 @@ st.set_page_config(
 st.title("CertiChain | Trust Gatekeeper")
 st.caption("Temporal and provenance-aware academic credential evidence triage")
 st.warning(
-    "RESEARCH PROTOTYPE — curated public institutional records + fictional candidate profiles. "
-    "Do not upload real candidate, student or personal data. This tool does not authenticate an individual award."
+    "RESEARCH PROTOTYPE — PDF text extraction and optional OCR are active. "
+    "Historical comparison currently covers selected BBSBEC 2018–19 records only. "
+    "Use synthetic documents or documents you are authorised to process; do not use production candidate data. "
+    "This tool does not authenticate an individual award or make candidate decisions."
 )
 
 with st.sidebar:
     st.header("Case workspace")
-    case_options = ["BBSBEC 2018–19 — analyst demo", *DEMO_CASES.keys()]
-    selected_case = st.selectbox("Choose a case", case_options)
-    if selected_case == "BBSBEC 2018–19 — analyst demo":
+    case_options = [
+        "Document intake — PDF upload",
+        "BBSBEC 2018–19 — analyst demo",
+        *DEMO_CASES.keys(),
+    ]
+    selected_case = st.selectbox("Choose a workspace", case_options)
+    if selected_case == "Document intake — PDF upload":
+        st.caption("Upload a PDF, extract claims, correct fields and run the historical reference check.")
+    elif selected_case == "BBSBEC 2018–19 — analyst demo":
         st.caption("Source-backed institution case with a fictional candidate profile.")
         st.caption("Switch between an IT course-closure review and a CSE positive control.")
     else:
@@ -38,6 +47,10 @@ with st.sidebar:
         authority_ok = st.checkbox("Processing authority documented (fixture)", value=True)
         input_safe = st.checkbox("Input passed safety checks (fixture)", value=True)
         st.caption("These controls test the intake gate. They are not a legal consent workflow.")
+
+if selected_case == "Document intake — PDF upload":
+    render_document_intake()
+    st.stop()
 
 if selected_case == "BBSBEC 2018–19 — analyst demo":
     render_bbsbec_demo(st)
@@ -198,7 +211,7 @@ with right:
         st.write("No additional action was produced.")
 
 with st.expander("Inspect synthetic case evidence and inputs"):
-    st.markdown(f"**Input mode:** `{case.get('input_mode', 'not specified')}`")
+    st.markdown(f"**Input mode:** {case.get('input_mode', 'not specified')}")
     st.markdown("**Field comparisons**")
     st.dataframe(case.get("field_comparisons", []), use_container_width=True, hide_index=True)
     st.markdown("**Required claims**")
@@ -223,6 +236,6 @@ st.download_button(
 
 st.divider()
 st.caption(
-    "TG-RULES-001 v0.1 · Synthetic-only · Human review required for unresolved findings. "
-    "Actual PDF/image upload, OCR, source ingestion and issuer verification are not implemented yet."
+    "TG-RULES-001 v0.1 · Synthetic fixture assessment · Human review required for unresolved findings. "
+    "Use the Document intake workspace for the active PDF extraction and historical comparison workflow."
 )
