@@ -6,6 +6,8 @@
 
 > **Workflow-mapping update — 15 November 2026:** Added [15 — Preliminary BGV Workflow Map](15_preliminary_bgv_workflow_map.md), structured from Practitioner Interview 01. It separates the reported faster digital lookup route from the reported legacy/manual exception route, identifies the historical claim families, and defines metrics and follow-up questions. This is a hypothesis map from one account, not a validated workflow. Gate A remains open; the current application and rules engine remain unchanged.
 
+> **Source-feasibility update — 15 November 2026:** Added [16 — India Historical Source Feasibility Assessment](16_india_historical_source_feasibility.md). The desk review found relevant official source families for UGC university/regulatory status, UGC-DEB ODL/online recognition, AICTE technical-education approval material, university-level affiliation lists and Gazette/statute records. Coverage is fragmented and claim-specific; AISHE is discovery/context only, not recognition evidence. The document proposes a small manually curated pilot. Gate A remains open, and no application or live-ingestion changes are authorised by this research finding.
+
 **Version:** 0.1  
 **Status:** Execution plan  
 **Date:** 14 November 2026
